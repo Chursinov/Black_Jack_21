@@ -3,6 +3,7 @@ from PIL import ImageTk  # Модуль для связи GUI и изображ�
 from PIL import Image as Img  # Модуль для  изображений
 from random import shuffle  # Модуль рандом
 
+
 class Main:
     # Инициализация класса.
     def __init__(self):
