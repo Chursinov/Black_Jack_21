@@ -22,11 +22,11 @@ class Main:
         self.dealer_hand = []  # Обозначаем "руку" дилера
         self.player_hand = []  # Обозначаем "руку" игрока
 
-        self.background_image = ImageTk.PhotoImage(Img.open('Background.png'))  # Определяем текстуру фона окна
+        self.background_image0 = ImageTk.PhotoImage(Img.open('Background.png'))  # Определяем текстуру фона окна
         self.deal_image = ImageTk.PhotoImage(Img.open('Deal.png'))  # Текстура кнопки "начать"
         self.hit_image = ImageTk.PhotoImage(Img.open('Hit.png'))  # Текстура кнопки "взять"
         self.stand_image = ImageTk.PhotoImage(Img.open('Stand.png'))  # Текстура кнопки "оставить"
-        self.background_label = Label(self.ma1n, image=self.background_image)   # Определяем фон окна
+        self.background_label = Label(self.ma1n, image=self.background_image0)   # Определяем фон окна
         self.status_label = Label(self.ma1n, font=('Minecraft', 10), bg='#f2ca3f', fg='#FFFFFF')  # Создаём Label, где будет отображаться статус игры (победа/проигрыш)
         self.dealer_score_label = IntVar()  # Переменная Integer типа для очков дилера
         self.dealer_label = Label(self.ma1n, textvariable=self.dealer_score_label, bg='#3b3a38', fg='#FFFFFF', font=('Minecraft', 10))  # Label для очков дилера
