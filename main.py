@@ -27,7 +27,7 @@ class Main:
         self.hit_image = ImageTk.PhotoImage(Img.open('Hit.png'))  # Текстура кнопки "взять"
         self.stand_image = ImageTk.PhotoImage(Img.open('Stand.png'))  # Текстура кнопки "оставить"
         self.background_label = Label(self.ma1n, image=self.background_image)   # Определяем фон окна
-        self.status_label = Label(self.ma1n, font=('Minecraft', 10))  # Создаём Label, где будет отображаться статус игры (победа/проигрыш)
+        self.status_label = Label(self.ma1n, font=('Minecraft', 10), bg='#f2ca3f', fg='#FFFFFF')  # Создаём Label, где будет отображаться статус игры (победа/проигрыш)
         self.dealer_score_label = IntVar()  # Переменная Integer типа для очков дилера
         self.dealer_label = Label(self.ma1n, textvariable=self.dealer_score_label, bg='#3b3a38', fg='#FFFFFF', font=('Minecraft', 10))  # Label для очков дилера
         self.dealer_card_frame = Frame(self.ma1n, bg='#7a3b5a')  # Рамка для карт дилера
@@ -105,8 +105,8 @@ class Main:
         self.player_score = self.score_hand(self.player_hand)  # Обновляем очки для игрока
         self.player_score_label.set(self.player_score)  # Обновляем Label, показывающий очки игрока
         if self.player_score > 21:  # Условие для перебора карт
-            self.status_label.place(x=0, y=400)
-            self.status_label['text'] = 'Перебор'
+            self.status_label.place(x=36, y=180, width=187, height=30)
+            self.status_label['text'] = 'YOU BUSTED'
         self.dealer_hand.append(self.deal_card(self.dealer_card_frame))  # Добавляем в колоду дилера случайную карту
         self.dealer_score = self.score_hand(self.dealer_hand)   # Обновляем очки для дилера
         self.dealer_score_label.set(self.dealer_score)  # Обновляем Label, показывающий очки игрока
@@ -114,8 +114,8 @@ class Main:
         self.player_score = self.score_hand(self.player_hand)  # Обновляем очки для дилера
         self.player_score_label.set(self.player_score)  # Обновляем Label, показывающий очки игрока
         if self.player_score > 21:  # Условие для перебора карт
-            self.status_label.place(x=0, y=400)
-            self.status_label['text'] = 'Перебор'
+            self.status_label.place(x=36, y=180, width=187, height=30)
+            self.status_label['text'] = 'YOU BUSTED'
         if self.player_score == 21:  # Условие для Блекджека (если в сумме карты дают 21)
             self.stand()
 
@@ -125,8 +125,8 @@ class Main:
         self.player_score = self.score_hand(self.player_hand)  # Обновляем очки для игрока
         self.player_score_label.set(self.player_score)  # Обновляем Label, показывающий очки игрока
         if self.player_score > 21:  # Условие для перебора карт
-            self.status_label.place(x=0, y=400)
-            self.status_label['text'] = 'Перебор'
+            self.status_label.place(x=36, y=180, width=187, height=30)
+            self.status_label['text'] = 'YOU BUSTED'
             self.button_hit.place_forget()
             self.button_stand.place_forget()
             self.button_deal.place(x=90, y=309)
@@ -142,20 +142,21 @@ class Main:
             self.dealer_score_label.set(self.dealer_score)  # Обновляем Label, показывающий очки дилера
         self.player_score = self.score_hand(self.player_hand)  # Обновляем очки для игрока
         if self.player_score > 21:  # Условие для перебора
-            self.status_label.place(x=0, y=400)
-            self.status_label['text'] = 'Перебор'
+            self.status_label.place(x=36, y=180, width=187, height=30)
+            self.status_label['text'] = 'YOU BUSTED'
         elif self.dealer_score > 21 or self.dealer_score < self.player_score:  # Условие для победы
-            self.status_label.place(x=0, y=400)
+            self.status_label.place(x=36, y=180, width=187, height=30)
             if self.player_score == 21:  # Дополнительное условие для Блекджека (если в сумме карты дают 21)
-                self.status_label['text'] = 'У вас 21!'
+                self.status_label['text'] = 'TWENTY ONE!'
             else:
-                self.status_label['text'] = 'You Lose!'
+                self.status_label['text'] = 'DEALER BUSTS!'
         elif self.dealer_score > self.player_score:  # Условие для Блекджека (если в сумме карты дают 21)
-            self.status_label.place(x=0, y=400)
-            self.status_label['text'] = 'You Lose!'
+            self.status_label.place(x=36, y=180, width=187, height=30)
+            self.status_label['text'] = 'DEALER WINS!'
+            print('lol')
         else:  # Иначе условие для ничьей
-            self.status_label.place(x=0, y=400)
-            self.status_label['text'] = 'Ничья'
+            self.status_label.place(x=36, y=180, width=187, height=30)
+            self.status_label['text'] = 'PUSH!'
         self.button_hit.place_forget()  # Прячем кнопку "Взять"
         self.button_stand.place_forget()  # Прячем кнопку "Оставить"
         self.button_deal.place(x=90, y=309)  # Показываем кнопку "Начать игру"
