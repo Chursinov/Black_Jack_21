@@ -3,7 +3,6 @@ from PIL import ImageTk  # Модуль для связи GUI и изображ�
 from PIL import Image as Img  # Модуль для  изображений
 from random import shuffle  # Модуль рандом
 
-
 class Main:
     # Инициализация класса.
     def __init__(self):
@@ -27,21 +26,20 @@ class Main:
         self.hit_image = ImageTk.PhotoImage(Img.open('Hit.png'))  # Текстура кнопки "взять"
         self.stand_image = ImageTk.PhotoImage(Img.open('Stand.png'))  # Текстура кнопки "оставить"
         self.background_label = Label(self.ma1n, image=self.background_image)   # Определяем фон окна
-        self.status_label = Label(self.ma1n)  # Создаём Label, где будет отображаться статус игры (победа/проигрыш)
+        self.status_label = Label(self.ma1n, font=('Minecraft', 10))  # Создаём Label, где будет отображаться статус игры (победа/проигрыш)
         self.dealer_score_label = IntVar()  # Переменная Integer типа для очков дилера
-        self.dealer_label = Label(self.ma1n, textvariable=self.dealer_score_label, bg='#3b3a38', fg='#FFFFFF')  # Label для очков дилера
-        self.dealer_card_frame = Frame(self.ma1n)  # Рамка для карт дилера
+        self.dealer_label = Label(self.ma1n, textvariable=self.dealer_score_label, bg='#3b3a38', fg='#FFFFFF', font=('Minecraft', 10))  # Label для очков дилера
+        self.dealer_card_frame = Frame(self.ma1n, bg='#7a3b5a')  # Рамка для карт дилера
         self.player_score_label = IntVar()  # Переменная Integer типа для очков игрока
-        self.player_label = Label(self.ma1n, textvariable=self.player_score_label, bg='#3b3a38', fg='#FFFFFF')  # Label для очков игрока
-        self.player_card_frame = Frame(self.ma1n)  # Рамка для карт игрока
+        self.player_label = Label(self.ma1n, textvariable=self.player_score_label, bg='#3b3a38', fg='#FFFFFF', font=('Minecraft', 10))  # Label для очков игрока
+        self.player_card_frame = Frame(self.ma1n, bg='#552e41')  # Рамка для карт игрока
         self.button_deal = Button(self.ma1n, image=self.deal_image, relief=FLAT, border='0', command=self.deal, bg='#552e41', activebackground='#552e41')  # Кнопка "Начать"
         self.button_hit = Button(self.ma1n, image=self.hit_image, relief=FLAT, border='0', command=self.hit, bg='#552e41', activebackground='#552e41')  # Кнопка "Взять"
         self.button_stand = Button(self.ma1n, image=self.stand_image, relief=FLAT, border='0', command=self.stand, bg='#552e41', activebackground='#552e41')  # Кнопка "Оставить"
-
         self.background_label.place(x=0, y=0, relwidth=1, relheight=1)  # Выставляем в окне Label с фоном
-        self.dealer_label.place(x=115, y=88, width=30, height=12)  # Выставляем счётчик очков дилера
+        self.dealer_label.place(x=115, y=89, width=30, height=12)  # Выставляем счётчик очков дилера
         self.dealer_card_frame.place(x=73, y=121)  # Выставляем рамку с картами дилера
-        self.player_label.place(x=115, y=224, width=30, height=12)  # Выставляем счётчик очков игрока
+        self.player_label.place(x=115, y=225, width=30, height=12)  # Выставляем счётчик очков игрока
         self.player_card_frame.place(x=73, y=255)  # Выставляем рамку с картами игрока
         self.button_deal.place(x=90, y=309)  # Выставляем кнопку "Начать игру"
 
@@ -63,8 +61,12 @@ class Main:
     def deal_card(self, frame):
         next_card = self.deck.pop(0)  # Карта достаётся из колоды и удаляется оттуда. (0 - карту взяли с верха колоды)
         self.deck.append(next_card)  # В колоду добавляется эта выпавшая карта
-        frame.config(bg='#552e41')
-        Label(frame, image=next_card[1], relief='flat', bg='#552e41').pack(side=LEFT, padx=1)  # Label с картой добавляется в рамку
+        if frame == self.dealer_card_frame:
+            frame.config(bg='#824564')
+            Label(frame, image=next_card[1], relief='flat', bg='#824564').pack(side=LEFT)  # Label с картой добавляется в рамку
+        else:
+            frame.config(bg='#552e41')
+            Label(frame, image=next_card[1], relief='flat', bg='#552e41').pack(side=LEFT)  # Label с картой добавляется в рамку
         return next_card  # Результат программы - кортеж с весом карты и картинкой карты
 
     # Подсчёт карт в 'руке'.
@@ -90,10 +92,10 @@ class Main:
         self.button_stand.place(x=155, y=309)  # Ставим кнопку "Оставить" на координаты
         self.button_deal.place_forget()  # Прячем кнопку "Начать игру"
         self.dealer_card_frame.destroy()  # Удаляем рамку с картами дилера
-        self.dealer_card_frame = Frame(self.ma1n, bg='#FFFFFF')  # Создаём рамку с картами дилера
+        self.dealer_card_frame = Frame(self.ma1n)  # Создаём рамку с картами дилера
         self.dealer_card_frame.place(x=73, y=121)  # Ставим рамку с картами дилера
         self.player_card_frame.destroy()  # Удаляем рамку с картами игрока
-        self.player_card_frame = Frame(self.ma1n, bg='#FFFFFF')  # Создаём рамку с картами игрока
+        self.player_card_frame = Frame(self.ma1n)  # Создаём рамку с картами игрока
         self.player_card_frame.place(x=73, y=255)  # Ставим рамку с картами игрока
         self.status_label['text'] = ''  # Стираем текст из Label со статусом игры
         self.dealer_hand = []  # Опустошаем колоду дилера
@@ -146,10 +148,10 @@ class Main:
             if self.player_score == 21:  # Дополнительное условие для Блекджека (если в сумме карты дают 21)
                 self.status_label['text'] = 'У вас 21!'
             else:
-                self.status_label['text'] = 'Вы выиграли!'
+                self.status_label['text'] = 'You Lose!'
         elif self.dealer_score > self.player_score:  # Условие для Блекджека (если в сумме карты дают 21)
             self.status_label.place(x=0, y=400)
-            self.status_label['text'] = 'Вы проиграли'
+            self.status_label['text'] = 'You Lose!'
         else:  # Иначе условие для ничьей
             self.status_label.place(x=0, y=400)
             self.status_label['text'] = 'Ничья'
