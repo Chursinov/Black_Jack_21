@@ -21,4 +21,4 @@ There is a special floor in the casino category, where players can play Blackjac
 * Fix *Status messages", and make them like in TinyTower:Vegas
 * Add custom themes for buttons/background, like in TinyTower:Vegas
 
-![Gameplay](https://github.com/Chursinov/Black_Jack_21/blob/master/Gameplay.gif)
+![Gameplay](https://github.com/Chursinov/Black_Jack_21/blob/master/Gameplay1.gif)
